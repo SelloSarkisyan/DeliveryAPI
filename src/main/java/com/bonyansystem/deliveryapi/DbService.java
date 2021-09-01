@@ -12,7 +12,6 @@ public class DbService {
 
     public void insertEntity(DeliveryEntity delivery) throws SQLException {
         Context ctx;
-
         Hashtable<String, String> ht = new Hashtable<>();
         //initializing the weblogic adress to connect
         ht.put(Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
@@ -24,7 +23,7 @@ public class DbService {
         try {
             ctx = new InitialContext(ht);
             javax.sql.DataSource ds;
-            ds = (javax.sql.DataSource) ctx.lookup("jndiSerly");
+            ds = (javax.sql.DataSource) ctx.lookup("jndi_serly");
             conn = ds.getConnection();
 
             stmt = conn.prepareStatement(
@@ -34,13 +33,11 @@ public class DbService {
 
             stmt.setInt(1, delivery.getId()); //Id
             stmt.setInt(2, delivery.getDaykey()); //daykey
-            stmt.setInt(3,delivery.getDelid() );
-            stmt.setInt(4, delivery.getMsisdn());
-            stmt.setInt(5, delivery.getPart());
-            stmt.setInt(6, delivery.getOpStat());
-            stmt.setString(7, delivery.getStatus());
-
-            System.out.println(delivery.getStatus());
+            stmt.setInt(3,delivery.getDelid() );//delid
+            stmt.setInt(4, delivery.getMsisdn());//msisdn
+            stmt.setInt(5, delivery.getPart());//part
+            stmt.setInt(6, delivery.getOpStat());//opstat
+            stmt.setString(7, delivery.getStatus());//status
 
             stmt.execute();
             stmt.close();
@@ -48,16 +45,14 @@ public class DbService {
             ctx.close();
 
         } catch (NamingException | SQLException ex) {
+
+            if (ex instanceof NamingException){ System.out.println("error during creation of new Initial context or lookup");}
+            if (ex instanceof SQLException){ System.out.println("error during connection or statement closing process");}
             ex.printStackTrace();
             return;
         } finally {
             if (stmt != null) stmt.close();
             if (conn != null) conn.close();
         }
-
-        // using conn object to create Statements and retrieve result sets
-      //  System.out.println("can't close the statement");
-        //closing context
-      //  System.out.println("can't close the context ,statement or connection.");
     }
 }

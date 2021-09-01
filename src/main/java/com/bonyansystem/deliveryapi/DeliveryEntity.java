@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-
 @Table(name = "sp_delivery_tab")
 public class DeliveryEntity implements Serializable {
     @Id
