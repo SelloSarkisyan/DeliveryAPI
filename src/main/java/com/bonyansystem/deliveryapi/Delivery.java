@@ -1,13 +1,11 @@
 package com.bonyansystem.deliveryapi;
-
 import javax.ws.rs.*;
 
 //defining the path of request and entry variables
 @Path("/delivery")
 public class Delivery {
 	//{delivery}?id={id}&daykey={daykey}&delid={deliveryId}&msisdn={msisdn}&part={part}&opstat={opStat}&stat={stat}
-	//http://localhost:7001/DeliveryAPI-1.0-SNAPSHOT/api/delivery?id=1&daykey=1&delid=1&msisdn=1&part=1&opstat=1&stat=fine
-
+	//http://localhost:7001/DeliveryAPI-1.0-SNAPSHOT/api/
 	//delivery?id=12345&daykey=14000526&delid=1325&msisdn=0936979&part=1&opstat=12&stat=done
 	@GET
 	@Produces("text/plain")
@@ -23,6 +21,7 @@ public class Delivery {
 			return "DONE";
 		}
 		catch (Exception e){
+			e.printStackTrace();
 			return  "Insertion Failed";
 		}
 	}

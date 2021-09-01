@@ -27,7 +27,6 @@ public class DeliveryEntity implements Serializable {
         this.status = status;
         this.msisdn = msisdn;
         this.part = part;
-
         this.opstat = opstat;
     }
 

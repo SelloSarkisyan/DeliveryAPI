@@ -23,11 +23,11 @@ public class DbService {
         try {
             ctx = new InitialContext(ht);
             javax.sql.DataSource ds;
-            ds = (javax.sql.DataSource) ctx.lookup("jndi_serly");
+            ds = (javax.sql.DataSource) ctx.lookup("jndiSerly");
             conn = ds.getConnection();
 
             stmt = conn.prepareStatement(
-                    "insert into sp_delivery_tab(Id, daykey, delid, msisdn, " +
+                    "insert into sp_delivery_tab_serly(Id, daykey, delid, msisdn, " +
                     "part, opstat, status) " +
                     "values(?, ?, ?, ?, ?, ?, ?)");
 
@@ -45,12 +45,12 @@ public class DbService {
             ctx.close();
 
         } catch (NamingException | SQLException ex) {
-
             if (ex instanceof NamingException){ System.out.println("error during creation of new Initial context or lookup");}
             if (ex instanceof SQLException){ System.out.println("error during connection or statement closing process");}
             ex.printStackTrace();
             return;
-        } finally {
+          }
+        finally {
             if (stmt != null) stmt.close();
             if (conn != null) conn.close();
         }
